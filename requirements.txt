@@ -6,3 +6,4 @@ joblib
 validators
 requests
 gunicorn
+python-whois

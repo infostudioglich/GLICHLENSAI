@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GlichLens AI</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="background-grid"></div>
+
+    <div class="container">
+
+        <div class="glass-card">
+
+            <h1>GLICHLENS AI</h1>
+
+            <p class="subtitle">
+                Advanced Cyber Threat Detection Dashboard
+            </p>
+
+            <form method="POST" onsubmit="return showLoading()">
+
+                <input
+                    type="text"
+                    name="url"
+                    placeholder="Enter suspicious URL..."
+                    required
+                >
+
+                <button type="submit" id="analyzeBtn"> 
+                    <span id="btnText">SCAN THREAT</span>
+                </button>
+
+            </form>
+
+            <script>
+
+function showLoading() {
+
+    const button = document.getElementById("analyzeBtn");
+    const btnText = document.getElementById("btnText");
+
+    button.disabled = true;
+
+    btnText.innerHTML = "INITIALIZING SCAN...";
+
+    return true;
+}
+
+</script>
+
+            {% if result %}
+
+            <div class="result-card">
+
+                <div class="circle
+                    {% if result == 'SAFE' %}
+                        safe
+                    {% elif result == 'SUSPICIOUS' %}
+                        suspicious
+                    {% else %}
+                        dangerous
+                    {% endif %}
+                ">
+
+                    <h2>{{ risk_score }}%</h2>
+
+                </div>
+
+                <h2 class="
+                    {% if result == 'SAFE' %}
+                        safe-text
+                    {% elif result == 'SUSPICIOUS' %}
+                        suspicious-text
+                    {% else %}
+                        dangerous-text
+                    {% endif %}
+                ">
+                    {{ result }}
+                </h2>
+
+                <div class="scan-lines"></div>
+
+                <div class="details">
+
+                    <h3>Threat Analysis</h3>
+
+                    <ul>
+
+                        {% for reason in reasons %}
+
+                        <li>{{ reason }}</li>
+
+                        {% endfor %}
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

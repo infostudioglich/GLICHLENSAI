@@ -188,8 +188,24 @@ def index():
         if domain_age < 30:
             reasons.append("Domain is very new")
 
-        if redirects > 3:
-            reasons.append(f"Too many redirects detected ({redirects})")
+
+        if redirects == 0:
+            reasons.append("No redirects detected")
+
+        elif redirects <= 2:
+            reasons.append(
+        f"Normal redirect behavior detected ({redirects})"
+    )
+
+        elif redirects <= 4:
+            reasons.append(
+        f"Multiple redirects detected ({redirects})"
+    )
+
+        else:
+            reasons.append(
+        f"Suspicious redirect chain detected ({redirects})"
+    )
 
         if not ssl_valid:
             reasons.append("SSL certificate validation failed")

@@ -15,5 +15,5 @@ def check_domain_age(domain):
 
         return age
 
-    except:
-        return 0
+    except Exception:
+     return None

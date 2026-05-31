@@ -6,21 +6,23 @@ import requests
 def get_ip_info(url):
 
     try:
-
         parsed = urlparse(url)
 
         domain = parsed.netloc
 
+        # DNS lookup
         ip_address = socket.gethostbyname(domain)
 
         try:
-
-            response = requests.get(url, timeout=5)
+            response = requests.get(
+                url,
+                timeout=5,
+                allow_redirects=True
+            )
 
             status = response.status_code
 
-        except:
-
+        except Exception:
             status = "DOWN"
 
         return {
@@ -28,8 +30,7 @@ def get_ip_info(url):
             "status": status
         }
 
-    except:
-
+    except Exception:
         return {
             "ip": "Unknown",
             "status": "Error"
